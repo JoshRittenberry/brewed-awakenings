@@ -1,0 +1,27 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table employees {
+  id integer pk
+  name integer
+  email string
+  hourlyRate number
+}
+
+Table products {
+  id integer pk
+  name string
+  price number
+}
+
+Table orders {
+  id integer pk
+  productId integer
+  employeeId integer
+  timestamp integer
+}
+
+Ref: "orders"."productId" < "products"."id"
+
+
+Ref: "orders"."employeeId" > "employees"."id"
