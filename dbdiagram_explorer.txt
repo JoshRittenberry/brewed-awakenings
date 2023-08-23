@@ -1,0 +1,62 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table employees {
+  id integer pk
+  name integer
+  email varchar
+  hourlyRate number
+  location integer
+}
+
+Table products {
+  id integer pk
+  name varchar
+  price number
+  rating array
+}
+
+Table ratings {
+  id integer
+  rating integer
+  productId integer
+  customerId integer
+}
+
+Table orders {
+  id integer pk
+  customerId integer
+  productId integer
+  employeeId integer
+  timestamp integer
+}
+
+Table locations {
+  id integer pk
+  name varchar
+  products array
+  recommendations array
+}
+
+Table customers {
+  id integer pk
+  name varchar
+  cardNumber integer
+}
+
+Table recommendations {
+  id integer pk
+  customerId integer
+  locationId integer
+  recommendation varchar
+}
+
+Ref: "orders"."productId" < "products"."id"
+Ref: "orders"."employeeId" > "employees"."id"
+Ref: "locations"."id" < "employees"."location"
+Ref: "products"."id" > "locations"."products"
+Ref: "customers"."id" - "orders"."customerId"
+Ref: "products"."id" < "ratings"."productId"
+Ref: "ratings"."customerId" > "customers"."id"
+Ref: "customers"."id" < "recommendations"."customerId"
+Ref: "recommendations"."locationId" > "locations"."id"
